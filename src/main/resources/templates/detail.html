@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{ layout/layout.html }"
+>
+
+<div layout:fragment="content">
+    <main class="container">
+
+    <!-- 음식 업로드 -->
+        <div class="row g-5">
+            <div class="">
+                <article class="blog-post">
+                    <h3 class="fst-italic">
+                        Traditional Alcohol Recommendation AI
+                    </h3>
+
+                    <p class="lead my-4 ">음식 사진을 업로드해보세요.</p>
+
+                    <div class="uploadImg">
+                        <div class="text-center border border-gray" style="">
+                            <img id="view" src="/images/createImages.png"  style="width: 50%; height: 60%; padding: 5%;">
+                            <div class="input-group">
+                                <input id="imgUpload" class="p-5 bg-body" style="margin: 5%;" name="imgFile"
+                                       type="file" multiple="multiple" accept="image/jpeg, image/png" onchange="setThumbnail(this);"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    </br>
+
+                    <nav class="blog-pagination" aria-label="Pagination">
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-outline-primary rounded-pill me-2" href="#">다음</a>
+                        </div>
+                    </nav>
+
+                </article>
+            </div>
+        </div>
+    </main>
+
+
+<th:block layout:fragment="script">
+
+    <script th:src="@{/js/detail.js}"></script>
+
+    <!-- 이미지 미리보기-->
+    <script th:inline="javascript">
+        $(function() {
+          $("#imgUpload").on('change', function() {
+            readURL(this);
+          });
+        });
+
+        function readURL(input){
+          if(input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $('#view').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+    </script>
+</th:block>
+</div>
+
+</body>
+</html>

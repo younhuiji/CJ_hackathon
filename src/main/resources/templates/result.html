@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{ layout/layout.html }"
+>
+
+<style>
+        .down-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #000; /* 화살표의 색상을 원하는 색으로 변경할 수 있습니다. */
+        }
+</style>
+
+<div layout:fragment="content">
+    <main class="container">
+
+    <!-- 음식 판단 결과 -->
+        <div class="row g-5">
+            <div class="">
+                <article class="blog-post">
+                    <h3 class="fst-italic">
+                        Traditional Alcohol Recommendation AI
+                    </h3>
+
+                    <p class="lead my-4 fw-bold">[음식 명]</p>
+
+                    <div class="uploadImg">
+                        <div class="text-center border border-gray" style="">
+                            <img id="view" src="/images/apple.jpg"  style="width: 50%; height: 60%; padding: 5%;">
+                        </div>
+                    </div>
+
+                    </br>
+
+                    <!-- 리뷰순, 별점순 -->
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">리뷰순</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">평점순</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <!-- 술 추천 시작 -->
+                                <div class="card mb-3" style="max-width: 100%; padding: 5%;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="/images/alcohol/chungju_45.jpg" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Card title</h5>
+                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </br>
+                            <p style="text-align: center;">이런 전통주는 어떠세요?</p>
+                            </br>
+
+                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                            <div class="p-4 mb-3 bg-body-tertiary rounded">
+                                    <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/images/alcohol/chungju_4.jpg" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/images/alcohol/chungju_6.jpg" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                        </div>
+                        <!-- 술 추천 리스트 끝 -->
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                            <!-- 술 추천 시작 -->
+                            <div class="card mb-3" style="max-width: 100%; padding: 5%;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="/images/alcohol/chungju_41.jpg" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </br>
+                            <p style="text-align: center;">이런 전통주는 어떠세요?</p>
+                            </br>
+
+                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                            <div class="p-4 mb-3 bg-body-tertiary rounded">
+                                <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="/images/alcohol/chungju_59.jpg"  class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Card title</h5>
+                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="/images/alcohol/soju_7.jpg" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Card title</h5>
+                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                        <!-- 카드 리스트 끝 -->
+                        </div>
+                    </div>
+                    <!--리뷰순, 별점순 끝 -->
+                </article>
+            </div>
+        </div>
+        <!-- 음식 판단 결과 끝-->
+    </main>
+
+<th:block layout:fragment="script">
+
+    <!-- 술 추천 tab  -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]');
+
+            triggerTabList.forEach((triggerEl) => {
+                triggerEl.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    new bootstrap.Tab(triggerEl).show();
+                });
+            });
+        });
+    </script>
+
+</th:block>
+
+</div>
+</body>
+</html>

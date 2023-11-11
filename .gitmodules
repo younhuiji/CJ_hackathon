@@ -1,0 +1,12 @@
+[submodule "submodules/module1"]
+	path = submodules/module1
+	url = https://github.com/younhuiji/CJ_hackathon/
+[submodule "submodules/module2"]
+	path = submodules/module2
+	url = https://github.com/younhuiji/CJ_hackathon/
+[submodule "cj/AI"]
+	path = cj/AI
+	url = https://github.com/younhuiji/CJ_hackathon
+[submodule "cj/traditionalAlcohol"]
+	path = cj/traditionalAlcohol
+	url = https://github.com/younhuiji/CJ_hackathon

@@ -40,6 +40,10 @@ dependencies {
     // Slf4j 테스트코드 작성시 필요
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // json
+    implementation 'org.json:json:20210307'
+
 }
 
 tasks.named('test') {

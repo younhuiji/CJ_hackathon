@@ -41,7 +41,4 @@ public class TraditionalAlcohol {
         private Integer tannin_flavor;
         private String en_foods;
 
-        // 생성자, getter 및 setter 메서드 등 필요한 코드 추가
-
-
 }

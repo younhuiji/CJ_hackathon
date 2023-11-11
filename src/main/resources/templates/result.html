@@ -16,170 +16,256 @@
 </style>
 
 <div layout:fragment="content">
-    <main class="container">
 
-    <!-- 음식 판단 결과 -->
-        <div class="row g-5">
-            <div class="">
-                <article class="blog-post">
-                    <h3 class="fst-italic">
-                        Traditional Alcohol Recommendation AI
-                    </h3>
+<!--    <div th:if="${paramName == null}" class="text-center border border-gray mt-5" style="background-color: #f0f0f0; padding: 20px; display: flex; flex-direction: column; align-items: center;">-->
+<!--        <article class="blog-post">-->
+<!--            <p style="text-align: center; width: 100%; margin-top:25px;">죄송합니다. 분석이 어려운 음식이네요. 다른 음식은 어떠세요?</p>-->
+<!--            <button onclick="location.href='/detail'" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">다시 시도해보기</button>-->
+<!--        </article>-->
+<!--    </div>-->
 
-                    <p class="lead my-4 fw-bold">[음식 명]</p>
+    <div th:if="${paramName != null}">
 
-                    <div class="uploadImg">
-                        <div class="text-center border border-gray" style="">
-                            <img id="view" src="/images/apple.jpg"  style="width: 50%; height: 60%; padding: 5%;">
+        <main class="container">
+
+        <!-- 음식 판단 결과 -->
+            <div class="row g-5">
+                <div class="">
+                    <article class="blog-post">
+                        <h3 class="fst-italic">
+                            Traditional Alcohol Recommendation AI
+                        </h3>
+
+                        <p class="lead my-4 fw-bold" th:text="${foodKorea}"  ></p>
+
+                        <div class="uploadImg" id="imageContainer">
+                            <div class="text-center border border-gray" style="">
+                                    <img id="resultImage" src="#" alt="Result Image" style="width: 50%; height: 60%; padding: 5%;">
+                            </div>
                         </div>
-                    </div>
 
-                    </br>
+                        </br>
 
-                    <!-- 리뷰순, 별점순 -->
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">리뷰순</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">평점순</button>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                        <!-- 리뷰순, 별점순 -->
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">리뷰순</button>
+                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">평점순</button>
+                            </div>
+                        </nav>
+
+                        <!-- 리뷰순 -->
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                    <!-- 술 추천 시작 -->
+                                    <div class="card mb-3" style="max-width: 100%; padding: 5%;" th:each="r : ${review}">
+                                        <div class="row g-0">
+                                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                                <img th:src="'/images/'+ ${r.image_path}" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body" style="padding: 25px;">
+                                                    <h5 class="card-title" th:text="${r.name}"></h5>
+                                                    <p class="card-text" th:text="${r.taste_point}"></p>
+                                                    <p class="card-text"><small class="text-body-secondary" th:text="${r.alcohol_degree}"></small></p>
+
+                                                    <div>
+                                                        <label>달콤함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${r.sweet_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${r.sweet_flavor * 25} + '%'" th:text="${r.sweet_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>바디감</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${r.body_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${r.body_flavor * 25} + '%'" th:text="${r.body_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>새콤함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${r.sour_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${r.sour_flavor * 25} + '%'" th:text="${r.sour_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>씁쓸함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${r.carbonic_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${r.carbonic_flavor * 25} + '%'" th:text="${r.carbonic_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>탄산감</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${r.tannin_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${r.tannin_flavor * 25} + '%'" th:text="${r.tannin_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </br>
+                                <p style="text-align: center; lead my-4 fw-bold;">이런 전통주는 어떠세요?</p>
+                                </br>
+
+                                <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                                <div class="p-4 mb-3 bg-body-tertiary rounded"  th:each="a : ${simReview}">
+                                        <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                            <div class="row g-0">
+                                                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                                    <img th:src="'/images/'+ ${a.image_path}" class="img-fluid rounded-start"  alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body" style="padding: 25px;">
+                                                        <h5 class="card-title" th:text="${a.name}"></h5>
+                                                        <p class="card-text" th:text="${a.taste_point}" ></p>
+                                                        <p class="card-text" ><small class="text-body-secondary" th:text="${a.alcohol_degree}"></small></p>
+                                                        <div>
+                                                            <label>달콤함</label>
+                                                            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${a.sweet_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="progress-bar bg-danger" th:style="'width: ' + ${a.sweet_flavor * 25} + '%'" th:text="${a.sweet_flavor * 25} + '%'"></div>
+                                                            </div>
+                                                            <label>바디감</label>
+                                                            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${a.body_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="progress-bar bg-danger" th:style="'width: ' + ${a.body_flavor * 25} + '%'" th:text="${a.body_flavor * 25} + '%'"></div>
+                                                            </div>
+                                                            <label>새콤함</label>
+                                                            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${a.sour_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="progress-bar bg-danger" th:style="'width: ' + ${a.sour_flavor * 25} + '%'" th:text="${a.sour_flavor * 25} + '%'"></div>
+                                                            </div>
+                                                            <label>씁쓸함</label>
+                                                            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${a.carbonic_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="progress-bar bg-danger" th:style="'width: ' + ${a.carbonic_flavor * 25} + '%'" th:text="${a.carbonic_flavor * 25} + '%'"></div>
+                                                            </div>
+                                                            <label>탄산감</label>
+                                                            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${a.tannin_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                                <div class="progress-bar bg-danger" th:style="'width: ' + ${a.tannin_flavor * 25} + '%'" th:text="${a.tannin_flavor * 25} + '%'"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                            </div>
+                            <!-- 술 추천 리스트 끝 -->
+
+
+
+                            <!-- 평점순 -->
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0" >
                                 <!-- 술 추천 시작 -->
-                                <div class="card mb-3" style="max-width: 100%; padding: 5%;">
+                                <div class="card mb-3" style="max-width: 100%; padding: 5%;" th:each="s : ${score}">
                                     <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="/images/alcohol/chungju_45.jpg" class="img-fluid rounded-start" alt="...">
+                                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                            <img th:src="'/images/'+ ${s.image_path}" class="img-fluid rounded-start" alt="...">
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </br>
-                            <p style="text-align: center;">이런 전통주는 어떠세요?</p>
-                            </br>
-
-                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
-                            <div class="p-4 mb-3 bg-body-tertiary rounded">
-                                    <div class="card mb-3" style="max-width: 100%;padding: 5%">
-                                        <div class="row g-0">
-                                            <div class="col-md-4">
-                                                <img src="/images/alcohol/chungju_4.jpg" class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-3" style="max-width: 100%;padding: 5%">
-                                        <div class="row g-0">
-                                            <div class="col-md-4">
-                                                <img src="/images/alcohol/chungju_6.jpg" class="img-fluid rounded-start" alt="...">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Card title</h5>
-                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                            <div class="card-body" style="padding: 25px;">
+                                                <h5 class="card-title" th:text="${s.name}"></h5>
+                                                <p class="card-text" th:text="${s.taste_point}"></p>
+                                                <p class="card-text"><small class="text-body-secondary" th:text="${s.alcohol_degree}"></small></p>
+                                                <div>
+                                                    <label>달콤함</label>
+                                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${s.sweet_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                        <div class="progress-bar bg-danger" th:style="'width: ' + ${s.sweet_flavor * 25} + '%'" th:text="${s.sweet_flavor * 25} + '%'"></div>
+                                                    </div>
+                                                    <label>바디감</label>
+                                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${s.body_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                        <div class="progress-bar bg-danger" th:style="'width: ' + ${s.body_flavor * 25} + '%'" th:text="${s.body_flavor * 25} + '%'"></div>
+                                                    </div>
+                                                    <label>새콤함</label>
+                                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${s.sour_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                        <div class="progress-bar bg-danger" th:style="'width: ' + ${s.sour_flavor * 25} + '%'" th:text="${s.sour_flavor * 25} + '%'"></div>
+                                                    </div>
+                                                    <label>씁쓸함</label>
+                                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${s.carbonic_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                        <div class="progress-bar bg-danger" th:style="'width: ' + ${s.carbonic_flavor * 25} + '%'" th:text="${s.carbonic_flavor * 25} + '%'"></div>
+                                                    </div>
+                                                    <label>탄산감</label>
+                                                    <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${s.tannin_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                        <div class="progress-bar bg-danger" th:style="'width: ' + ${s.tannin_flavor * 25} + '%'" th:text="${s.tannin_flavor * 25} + '%'"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
-                        </div>
-                        <!-- 술 추천 리스트 끝 -->
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                            <!-- 술 추천 시작 -->
-                            <div class="card mb-3" style="max-width: 100%; padding: 5%;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="/images/alcohol/chungju_41.jpg" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            </br>
-                            <p style="text-align: center;">이런 전통주는 어떠세요?</p>
-                            </br>
+                                </br>
+                                <p style="text-align: center;">이런 전통주는 어떠세요?</p>
+                                </br>
 
-                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
-                            <div class="p-4 mb-3 bg-body-tertiary rounded">
-                                <div class="card mb-3" style="max-width: 100%;padding: 5%">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="/images/alcohol/chungju_59.jpg"  class="img-fluid rounded-start" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                                <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                                <div class="p-4 mb-3 bg-body-tertiary rounded"  th:each="l : ${simScore}">
+                                    <div class="card mb-3" style="max-width: 100%;padding: 5%">
+                                        <div class="row g-0">
+                                            <div class="col-md-4 d-flex justify-content-center align-items-center" >
+                                                <img th:src="'/images/'+ ${l.image_path}" class="img-fluid rounded-start"  alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body" style="padding: 25px;">
+                                                    <h5 class="card-title" th:text="${l.name}" ></h5>
+                                                    <p class="card-text" th:text="${l.taste_point}" ></p>
+                                                    <p class="card-text" ><small class="text-body-secondary" th:text="${l.alcohol_degree}"></small></p>
+                                                    <div>
+                                                        <label>달콤함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${l.sweet_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${l.sweet_flavor * 25} + '%'" th:text="${l.sweet_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>바디감</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${l.body_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${l.body_flavor * 25} + '%'" th:text="${l.body_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>새콤함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${l.sour_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${l.sour_flavor * 25} + '%'" th:text="${l.sour_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>씁쓸함</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${l.carbonic_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${l.carbonic_flavor * 25} + '%'" th:text="${l.carbonic_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                        <label>탄산감</label>
+                                                        <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="${l.tannin_flavor}" aria-valuemin="0" aria-valuemax="5">
+                                                            <div class="progress-bar bg-danger" th:style="'width: ' + ${l.tannin_flavor * 25} + '%'" th:text="${l.tannin_flavor * 25} + '%'"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card mb-3" style="max-width: 100%;padding: 5%">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="/images/alcohol/soju_7.jpg" class="img-fluid rounded-start" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Card title</h5>
-                                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- 술 추천과 비슷한 추가적 술 추천 -->
+                            <!-- 카드 리스트 끝 -->
                             </div>
-                            <!-- 술 추천과 비슷한 추가적 술 추천 -->
-                        <!-- 카드 리스트 끝 -->
                         </div>
-                    </div>
-                    <!--리뷰순, 별점순 끝 -->
-                </article>
+                        <!--리뷰순, 별점순 끝 -->
+                    </article>
+                </div>
             </div>
-        </div>
-        <!-- 음식 판단 결과 끝-->
-    </main>
+            <!-- 음식 판단 결과 끝-->
+        </main>
 
-<th:block layout:fragment="script">
+    <th:block layout:fragment="script">
+        <!-- 술 추천 tab  -->
+        <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+                const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]');
 
-    <!-- 술 추천 tab  -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-            const triggerTabList = document.querySelectorAll('[data-bs-toggle="tab"]');
-
-            triggerTabList.forEach((triggerEl) => {
-                triggerEl.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    new bootstrap.Tab(triggerEl).show();
+                triggerTabList.forEach((triggerEl) => {
+                    triggerEl.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        new bootstrap.Tab(triggerEl).show();
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+        <script th:inline="javascript">
 
-</th:block>
+            // localStorage에서 이미지 데이터를 가져와서 표시
+            var imageData = localStorage.getItem('imageData');
+            var resultImage = document.getElementById('resultImage');
+            resultImage.src = imageData;
 
-</div>
-</body>
+        </script>
+
+        </th:block>
+        </div>
+        </body>
+        </div>
+    </div>
 </html>
+

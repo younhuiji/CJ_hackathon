@@ -1,0 +1,6 @@
+[submodule "submodules/module1"]
+	path = submodules/module1
+	url = https://github.com/younhuiji/CJ_hackathon/
+[submodule "submodules/module2"]
+	path = submodules/module2
+	url = https://github.com/younhuiji/CJ_hackathon/
